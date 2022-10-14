@@ -1,0 +1,102 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es6",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": false,
+    "allowJs": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "paths": {
+      "services/services": [
+        "libs/services/src"
+      ],
+      "services/services/*": [
+        "libs/services/src/*"
+      ],
+      "database-mongo/database-mongo": [
+        "libs/database-mongo/src"
+      ],
+      "database-mongo/database-mongo/*": [
+        "libs/database-mongo/src/*"
+      ],
+      "database-postgres/database-postgres": [
+        "libs/database-postgres/src"
+      ],
+      "database-postgres/database-postgres/*": [
+        "libs/database-postgres/src/*"
+      ],
+      "auth/auth": [
+        "libs/auth/src"
+      ],
+      "auth/auth/*": [
+        "libs/auth/src/*"
+      ],
+      "Tools/tools": [
+        "libs/tools/src"
+      ],
+      "Tools/tools/*": [
+        "libs/tools/src/*"
+      ],
+      "database-elasticsearch/database-elasticsearch": [
+        "libs/database-elasticsearch/src"
+      ],
+      "database-elasticsearch/database-elasticsearch/*": [
+        "libs/database-elasticsearch/src/*"
+      ],
+      "Logger/logger": [
+        "libs/logger/src"
+      ],
+      "Logger/logger/*": [
+        "libs/logger/src/*"
+      ],
+      "service-logger/service-logger": [
+        "libs/service-logger/src"
+      ],
+      "service-logger/service-logger/*": [
+        "libs/service-logger/src/*"
+      ],
+      "dtos/dtos": [
+        "libs/dtos/src"
+      ],
+      "dtos/dtos/*": [
+        "libs/dtos/src/*"
+      ],
+      "validators/validators": [
+        "libs/validators/src"
+      ],
+      "validators/validators/*": [
+        "libs/validators/src/*"
+      ],
+      "mappers/mappers": [
+        "libs/mappers/src"
+      ],
+      "mappers/mappers/*": [
+        "libs/mappers/src/*"
+      ],
+      "@app/kafka": [
+        "libs/kafka/src"
+      ],
+      "@app/kafka/*": [
+        "libs/kafka/src/*"
+      ]
+    }
+  }
+}

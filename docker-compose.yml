@@ -1,0 +1,354 @@
+version: '3.7'
+
+services:
+  # postgresdb:
+  #   image: postgres:alpine
+  #   container_name: postgresdb
+  #   hostname: postgresdb
+  #   environment:
+  #     POSTGRES_USER: ${POSTGRES_USER}
+  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  #     POSTGRES_DB: ${KEYCLOAK_DB}
+  #   ports:
+  #     - ${POSTGRES_PORT}:${POSTGRES_PORT}
+
+  # postgres:
+  #   image: debezium/postgres:14
+  #   container_name: postgres
+  #   hostname: postgres
+  #   environment:
+  #     POSTGRES_USER: ${DEBEZIUM_POSTGRES_USER}
+  #     POSTGRES_PASSWORD: ${DEBEZIUM_POSTGRES_PASSWORD}
+  #     POSTGRES_DB: ${DEBEZIUM_POSTGRES_DB}
+  #   volumes:
+  #     - ./scripts/postgres/custom-config.conf:/etc/postgresql/postgresql.conf
+  #   command: postgres -c config_file=/etc/postgresql/postgresql.conf
+  #   ports:
+  #     - "${DEBEZIUM_POSTGRES_PORT}:5432"
+
+  # redis:
+  #   image: redis
+  #   restart: unless-stopped
+  #   container_name: redis
+  #   hostname: redis
+  #   ports:
+  #     - ${REDIS_PORT}:${REDIS_PORT}
+  #   command: 'redis-server --requirepass ${REDIS_PASSWORD} --appendonly yes'
+
+  # keycloak:
+  #   build:
+  #     context: ./
+  #     dockerfile: ./scripts/keycloak/keycloak.dockerfile
+  #   # image: jboss/keycloak:latest
+  #   container_name: keycloak
+  #   environment:
+  #     - KEYCLOAK_USER=${KEYCLOAK_USER}
+  #     - KEYCLOAK_PASSWORD=${KEYCLOAK_PASSWORD}
+  #     - KEYCLOAK_LOGLEVEL=DEBUG
+  #     - ROOT_LOGLEVEL=DEBUG
+  #     - DB_VENDOR=${KEYCLOACK_VENDOR}
+  #     - DB_DATABASE=${KEYCLOAK_DB}
+  #     - DB_ADDR=postgresdb
+  #     - DB_USER=${POSTGRES_USER}
+  #     - DB_SCHEMA=public
+  #     - DB_PASSWORD=${POSTGRES_PASSWORD}
+  #     # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
+  #     #JDBC_PARAMS: "ssl=true"
+  #   volumes:
+  #     - kcdata:/opt/jboss/keycloak/standalone/data
+  #     - ./themes/keycloak/easyvision:/opt/jboss/keycloak/themes/easyvision
+  #   ports:
+  #     - ${KEYCLOAK_PORT}:${KEYCLOAK_PORT}
+  #     - 8443:8443
+  #   depends_on:
+  #     - postgresdb
+  #   command:
+  #     - -b 0.0.0.0 --server-config=standalone.xml
+
+  # rabbitmq:
+  #   image: rabbitmq:3-management
+  #   restart: unless-stopped
+  #   container_name: rabbitmq
+  #   hostname: rabbitmq
+  #   ports:
+  #     - '15672:15672' # login to rabbit manager: {user:'guest', password:'guest'}
+  #     - '5671:5671'
+  #     - '5672:5672'
+
+  # elastic:
+  #   image: elasticsearch:7.6.2
+  #   hostname: elastic
+  #   container_name: elastic
+  #   ports:
+  #     - "9200:9200"
+  #     - "9300:9300"
+  #   environment:
+  #     xpack.security.enabled: "false"
+  #     ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+  #     discovery.type: single-node
+
+  # kibana:
+  #   image: docker.elastic.co/kibana/kibana:7.16.3
+  #   restart: unless-stopped
+  #   container_name: kibana
+  #   hostname: kibana
+  #   ports:
+  #     - "5601:5601"
+  #   volumes:
+  #     - ./scripts/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
+  #   depends_on:
+  #     - elastic
+
+  # timescaledb:
+  #   image: timescale/timescaledb:latest-pg14
+  #   restart: unless-stopped
+  #   container_name: timescaledb
+  #   hostname: timescaledb
+  #   environment:
+  #     POSTGRES_USER: ${TIMESCALE_USER}
+  #     POSTGRES_PASSWORD: ${TIMESCALE_PASSWORD}
+  #     POSTGRES_DB: ${TIMESCALE_DB}
+  #     PGDATA: /data/timscaledata
+  #   ports:
+  #     - ${TIMESCALE_PORT}:5432
+
+  mongo:
+    image: mongo:4.2.5
+    restart: unless-stopped
+    container_name: mongo
+    hostname: mongo
+    environment:
+      MONGO_INITDB_DATABASE: ${MONGO_DB}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_REPLICA_SET_NAME: my-replica-set
+    command: --replSet my-replica-set --bind_ip_all
+    ports:
+      - ${MONGO_PORT}:${MONGO_PORT}
+
+  mongo-express:
+    image: mongo-express:0.54.0
+    container_name: mongo-express
+    hostname: mongo-express
+    ports:
+      - 9090:9090
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: ${MONGO_USER}
+      ME_CONFIG_BASICAUTH_PASSWORD: ${MONGO_PASSWORD}
+      ME_CONFIG_MONGODB_PORT: ${MONGO_PORT}
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_USER}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_PASSWORD}
+    links:
+      - mongo
+  
+  # https://docs.confluent.io/platform/current/installation/docker/config-reference.html#docker-configuration-parameters-for-cp
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.2.1
+    hostname: zookeeper
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+      # ZOOKEEPER_SYNC_LIMIT: 2
+
+  broker:
+    image: confluentinc/cp-server:7.2.1
+    hostname: broker
+    container_name: broker
+    depends_on:
+      - zookeeper
+    ports:
+      - "29092:29092"
+      - "9092:9092"
+      - "9101:9101"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CONFLUENT_BALANCER_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_JMX_PORT: 9101
+      KAFKA_JMX_HOSTNAME: localhost
+      KAFKA_CONFLUENT_SCHEMA_REGISTRY_URL: http://schema-registry:8081
+      CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: broker:29092
+      CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
+      CONFLUENT_METRICS_ENABLE: 'true'
+      CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:7.2.1
+    hostname: schema-registry
+    container_name: schema-registry
+    depends_on:
+      - broker
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'broker:29092'
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+      # SCHEMA_REGISTRY_DEBUG: 'true'
+
+  connect:
+    image: cnfldemos/cp-server-connect-datagen:0.6.0-7.2.1
+    hostname: connect
+    container_name: connect
+    depends_on:
+      - broker
+      - schema-registry
+    ports:
+      - "8083:8083"
+    environment:
+      CONNECT_BOOTSTRAP_SERVERS: 'broker:29092'
+      CONNECT_REST_ADVERTISED_HOST_NAME: connect
+      # CONNECT_REST_PORT: 8083
+      CONNECT_GROUP_ID: docker-connect-group
+      # CONNECT_GROUP_ID: compose-connect-group
+      CONNECT_CONFIG_STORAGE_TOPIC: docker-connect-configs
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_OFFSET_FLUSH_INTERVAL_MS: 10000
+      CONNECT_OFFSET_STORAGE_TOPIC: docker-connect-offsets
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_STATUS_STORAGE_TOPIC: docker-connect-status
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_KEY_CONVERTER: org.apache.kafka.connect.storage.StringConverter
+      CONNECT_VALUE_CONVERTER: io.confluent.connect.avro.AvroConverter
+      CONNECT_INTERNAL_KEY_CONVERTER: org.apache.kafka.connect.storage.StringConverter
+      CONNECT_INTERNAL_VALUE_CONVERTER: io.confluent.connect.avro.AvroConverter
+      # CONNECT_INTERNAL_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: http://schema-registry:8081
+      # CLASSPATH required due to CC-2422
+      CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-7.2.1.jar
+      CONNECT_PRODUCER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor"
+      CONNECT_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
+      CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
+      CONNECT_LOG4J_LOGGERS: org.apache.zookeeper=ERROR,org.I0Itec.zkclient=ERROR,org.reflections=ERROR
+    command:
+      - bash
+      - -c
+      - |
+        echo "Installing Connector"
+        confluent-hub install --no-prompt mongodb/kafka-connect-mongodb:1.8.0
+        confluent-hub install --no-prompt jcustenborder/kafka-connect-twitter:0.3.34
+        confluent-hub install --no-prompt debezium/debezium-connector-postgresql:1.9.6
+        confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:10.6.0
+        confluent-hub install --no-prompt confluentinc/kafka-connect-elasticsearch:13.1.0
+        confluent-hub install --no-prompt neo4j/kafka-connect-neo4j:2.0.2
+        confluent-hub install --no-prompt confluentinc/kafka-connect-datagen:0.5.3
+        #
+        echo "Launching Kafka Connect worker"
+        /etc/confluent/docker/run &
+        #
+        sleep infinity
+
+  control-center:
+    image: confluentinc/cp-enterprise-control-center:7.2.1
+    hostname: control-center
+    container_name: control-center
+    depends_on:
+      - broker
+      - schema-registry
+      - connect
+      - ksqldb-server
+    ports:
+      - "9021:9021"
+    environment:
+      CONTROL_CENTER_BOOTSTRAP_SERVERS: 'broker:29092'
+      CONTROL_CENTER_CONNECT_CONNECT-DEFAULT_CLUSTER: 'connect:8083'
+      # CONTROL_CENTER_CONNECT_CLUSTER: 'connect:8083'
+      CONTROL_CENTER_KSQL_KSQLDB1_URL: "http://ksqldb-server:8088"
+      CONTROL_CENTER_KSQL_KSQLDB1_ADVERTISED_URL: "http://localhost:8088"
+      CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
+      CONTROL_CENTER_REPLICATION_FACTOR: 1
+      CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS: 1
+      CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
+      CONFLUENT_METRICS_TOPIC_REPLICATION: 1
+      PORT: 9021
+      # CONTROL_CENTER_COMMAND_TOPIC_REPLICATION: 1
+      # CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_REPLICATION: 1
+      # CONTROL_CENTER_INTERNAL_TOPICS_REPLICATION: 1
+      # CONTROL_CENTER_STREAMS_NUM_STREAM_THREADS: 1
+
+  ksqldb-server:
+    image: confluentinc/cp-ksqldb-server:7.2.1
+    hostname: ksqldb-server
+    container_name: ksqldb-server
+    depends_on:
+      - broker
+      - connect
+    ports:
+      - "8088:8088"
+    environment:
+      KSQL_CONFIG_DIR: "/etc/ksql"
+      KSQL_BOOTSTRAP_SERVERS: "broker:29092"
+      KSQL_HOST_NAME: ksqldb-server
+      KSQL_LISTENERS: "http://0.0.0.0:8088"
+      KSQL_CACHE_MAX_BYTES_BUFFERING: 0
+      KSQL_KSQL_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
+      KSQL_PRODUCER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor"
+      KSQL_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
+      KSQL_KSQL_CONNECT_URL: "http://connect:8083"
+      KSQL_KSQL_LOGGING_PROCESSING_TOPIC_REPLICATION_FACTOR: 1
+      KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE: 'true'
+      KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE: 'true'
+      # KSQL_KSQL_HIDDEN_TOPICS: '^_.*'
+
+  ksqldb-cli:
+    image: confluentinc/cp-ksqldb-cli:7.2.1
+    container_name: ksqldb-cli
+    depends_on:
+      - broker
+      - connect
+      - ksqldb-server
+    entrypoint: /bin/sh
+    tty: true
+
+  ksql-datagen:
+    image: confluentinc/ksqldb-examples:7.2.1
+    hostname: ksql-datagen
+    container_name: ksql-datagen
+    depends_on:
+      - ksqldb-server
+      - broker
+      - schema-registry
+      - connect
+    command: "bash -c 'echo Waiting for Kafka to be ready... && \
+                       cub kafka-ready -b broker:29092 1 40 && \
+                       echo Waiting for Confluent Schema Registry to be ready... && \
+                       cub sr-ready schema-registry 8081 40 && \
+                       echo Waiting a few seconds for topic creation to finish... && \
+                       sleep 11 && \
+                       tail -f /dev/null'"
+    environment:
+      KSQL_CONFIG_DIR: "/etc/ksql"
+      STREAMS_BOOTSTRAP_SERVERS: broker:29092
+      STREAMS_SCHEMA_REGISTRY_HOST: schema-registry
+      STREAMS_SCHEMA_REGISTRY_PORT: 8081
+
+  rest-proxy:
+    image: confluentinc/cp-kafka-rest:7.2.1
+    depends_on:
+      - broker
+      - schema-registry
+    ports:
+      - 8082:8082
+    hostname: rest-proxy
+    container_name: rest-proxy
+    environment:
+      KAFKA_REST_HOST_NAME: rest-proxy
+      KAFKA_REST_BOOTSTRAP_SERVERS: 'broker:29092'
+      KAFKA_REST_LISTENERS: "http://0.0.0.0:8082"
+      KAFKA_REST_SCHEMA_REGISTRY_URL: 'http://schema-registry:8081'
+      # KAFKA_REST_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+
+volumes:
+  kcdata:
+    driver: local

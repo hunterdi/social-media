@@ -1,0 +1,111 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/api/src",
+  "monorepo": true,
+  "root": "apps/api",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/api/tsconfig.app.json"
+  },
+  "projects": {
+    "api": {
+      "type": "application",
+      "root": "apps/api",
+      "entryFile": "main",
+      "sourceRoot": "apps/api/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/api/tsconfig.app.json"
+      }
+    },
+    "services": {
+      "type": "library",
+      "root": "libs/services",
+      "entryFile": "index",
+      "sourceRoot": "libs/services/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/services/tsconfig.lib.json"
+      }
+    },
+    "database-mongo": {
+      "type": "library",
+      "root": "libs/database-mongo",
+      "entryFile": "index",
+      "sourceRoot": "libs/database-mongo/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/database-mongo/tsconfig.lib.json"
+      }
+    },
+    "auth": {
+      "type": "library",
+      "root": "libs/auth",
+      "entryFile": "index",
+      "sourceRoot": "libs/auth/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/auth/tsconfig.lib.json"
+      }
+    },
+    "tools": {
+      "type": "library",
+      "root": "libs/tools",
+      "entryFile": "index",
+      "sourceRoot": "libs/tools/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/tools/tsconfig.lib.json"
+      }
+    },
+    "database-postgres": {
+      "type": "library",
+      "root": "libs/database-postgres",
+      "entryFile": "index",
+      "sourceRoot": "libs/database-postgres/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/database-postgres/tsconfig.lib.json"
+      }
+    },
+    "database-elasticsearch": {
+      "type": "library",
+      "root": "libs/database-elasticsearch",
+      "entryFile": "index",
+      "sourceRoot": "libs/database-elasticsearch/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/database-elasticsearch/tsconfig.lib.json"
+      }
+    },
+    "service-logger": {
+      "type": "library",
+      "root": "libs/service-logger",
+      "entryFile": "index",
+      "sourceRoot": "libs/service-logger/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/service-logger/tsconfig.lib.json"
+      }
+    },
+    "dtos": {
+      "type": "library",
+      "root": "libs/dtos",
+      "entryFile": "index",
+      "sourceRoot": "libs/dtos/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/dtos/tsconfig.lib.json"
+      }
+    },
+    "validators": {
+      "type": "library",
+      "root": "libs/validators",
+      "entryFile": "index",
+      "sourceRoot": "libs/validators/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/validators/tsconfig.lib.json"
+      }
+    },
+    "sga": {
+      "type": "application",
+      "root": "apps/sga",
+      "entryFile": "main",
+      "sourceRoot": "apps/sga/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/sga/tsconfig.app.json"
+      }
+    }
+  }
+}

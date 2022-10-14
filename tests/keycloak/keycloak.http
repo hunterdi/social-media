@@ -1,0 +1,14 @@
+POST http://localhost:8080/auth/realms/GF/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=API
+&client_secret=MYy160YlzX0r9HRldvDnXXnVkZtuadT5
+&grant_type=password
+# &grant_type=client_credentials
+&username=eric.cartman
+&password=FuckOffBitch
+################################################################
+
+GET http://localhost:8080/auth/realms/GF/protocol/openid-connect/userinfo
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJpLUVLelBkUUs4bzdyd1Nzb2gtMmVVZjBsX1ExU1NISkJMOUFLazlURDdzIn0.eyJleHAiOjE2NDE4NDgxNTcsImlhdCI6MTY0MTgxMjE1NywianRpIjoiZDk4OTJkNDEtM2JhZC00ZWFmLWI3NzgtMzlmN2M0ZDllZGExIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL0dGIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImNmNTFhYmJiLTg2NTUtNDEwYy1iOGZjLTI1YmY1ZWE3YTI5MCIsInR5cCI6IkJlYXJlciIsImF6cCI6IkFQSSIsInNlc3Npb25fc3RhdGUiOiI3MjdmNTE2MC03YzEwLTQ3OWItODBmOS1kZTUwZDgyZWVmNzMiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJkZWZhdWx0LXJvbGVzLWdmIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJzaWQiOiI3MjdmNTE2MC03YzEwLTQ3OWItODBmOS1kZTUwZDgyZWVmNzMiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6IkVyaWMgQ2FydG1hbiIsInByZWZlcnJlZF91c2VybmFtZSI6ImVyaWMuY2FydG1hbiIsImdpdmVuX25hbWUiOiJFcmljIiwiZmFtaWx5X25hbWUiOiJDYXJ0bWFuIiwiZW1haWwiOiJlcmljLmNhcnRtYW5AdGVzdC5jb20ifQ.FU_y7HWF1IjXwePtLvJG3q89w6P4oqlzSsr1baNw1JlhJISQ5Op9XtSVnNr6k-D9XKnnOE2BeGU8XtmWRyAIgAxwnRU-A0zCOS4oApWEfh3RzFtm_i6YHA0P8c8lKs2db8Ron77kAh3GY7Aj0zMxwDRR0DNV6L6ku-zc4ds0H0zNlXexyfrVimYvPUiYsyPXeWZQJudeyW3N3I-Wm4ekAuI8XnHE-E4-nss_8awiZQgnuSZtKMFWClSalKEruPZxlMlQYeHMlW_seTDl6hPwumfdMfJuDbU7YxmEMfMleu-AacncIysjqfGv6kyHuvTOfKVk69KpfsfPdlN44Qm3-Q
+################################################################

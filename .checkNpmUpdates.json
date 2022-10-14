@@ -1,0 +1,10 @@
+{
+    "disable": false,
+    "skip": [
+        "typescript"
+    ],
+    "skipPatchUpdates": [
+        "lodash"
+    ],
+    "lowestAuditLevel": "moderate"
+}
