@@ -24,3 +24,8 @@ up-app:
 
 down-app:
 	docker-compose --env-file .env -f docker-compose-app.yml down -v
+
+.PHONY: fix-permissions
+
+fix-permissions:
+	sudo chown -R "${USER:-$(id -un)}" .

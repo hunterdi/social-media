@@ -1,9 +1,9 @@
 import { AutoMap } from "@automapper/classes";
 import { Column, Entity, ManyToOne, RelationId } from "typeorm";
-import { MetricEntity, PostgresVersionActiveEntity } from ".";
+import { MetricEntity, PostgresActiveEntity } from ".";
 
 @Entity()
-export class TagEntity extends PostgresVersionActiveEntity {
+export class TagEntity extends PostgresActiveEntity {
 
     @AutoMap()
     @Column({ length: 100, unique: true, nullable: false })
@@ -11,11 +11,11 @@ export class TagEntity extends PostgresVersionActiveEntity {
 
     @AutoMap()
     @Column({ unique: false, nullable: false })
-    value!: string | Date | number;
+    value!: string;
 
     @AutoMap()
     @RelationId((tag: TagEntity) => tag.metric)
-    metricIds!: string[];
+    metricId!: string;
 
     @AutoMap()
     @ManyToOne(() => MetricEntity, (metric) => metric.tags, { nullable: false })

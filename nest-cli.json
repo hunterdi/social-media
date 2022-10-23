@@ -106,6 +106,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/sga/tsconfig.app.json"
       }
+    },
+    "configuration": {
+      "type": "library",
+      "root": "libs/configuration",
+      "entryFile": "index",
+      "sourceRoot": "libs/configuration/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/configuration/tsconfig.lib.json"
+      }
     }
   }
 }

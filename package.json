@@ -23,16 +23,17 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./apps/social-media/test/jest-e2e.json",
-    "docker:up": "Make up",
-    "docker:down": "Make down",
-    "typeorm": "typeorm-ts-node-esm -d ./libs/database-postgres/src/config/ormconfig.ts",
+    "services:up": "Make up",
+    "services:down": "Make down",
+    "typeorm:postgres": "typeorm-ts-node-esm -d ./libs/database-postgres/src/config/ormconfig.ts",
     "typeorm:cli": "typeorm-ts-node-esm",
-    "postgres:migration:generate": "yarn typeorm migration:generate ./libs/database-postgres/src/migrations/$1",
-    "postgres:migration:create": "yarn typeorm:cli migration:create ./libs/database-postgres/src/migrations/$1",
-    "postgres:migration:run": "yarn typeorm migration:run",
-    "postgres:migration:revert": "yarn typeorm migration:revert",
-    "postgres:migration:show": "yarn typeorm migration:show",
+    "postgres:migration:generate": "npm run typeorm:postgres migration:generate ./libs/database-postgres/src/migrations/Migration_Generated",
+    "postgres:migration:create": "npm run typeorm:cli migration:create ./libs/database-postgres/src/migrations/Migration_Created",
+    "postgres:migration:run": "npm run typeorm:postgres migration:run",
+    "postgres:migration:revert": "npm run typeorm:postgres migration:revert",
+    "postgres:migration:show": "npm run typeorm:postgres migration:show",
     "lib:create": "nest g library",
+    "app:create": "nest g app",
     "postgres:seed": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-seeding/dist/cli.js -c connPostgres -r ./libs/database-postgres/src/config -n ormconfig.ts",
     "postgres:seed:config": "yarn postgres:seed config",
     "postgres:seed:run": "yarn postgres:seed seed"
@@ -44,6 +45,7 @@
     "@automapper/pojos": "^8.7.6",
     "@elastic/ecs-pino-format": "^1.3.0",
     "@elastic/elasticsearch": "^8.4.0",
+    "@hapi/joi": "^17.1.1",
     "@nestjs/common": "^9.1.4",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.1.4",
@@ -54,6 +56,7 @@
     "@nestjs/platform-express": "^9.1.4",
     "@nestjs/swagger": "^6.1.2",
     "@nestjs/typeorm": "^9.0.1",
+    "@types/hapi__joi": "^17.1.8",
     "@types/joi": "^17.2.3",
     "@types/pino-http": "^5.8.1",
     "bcrypt": "^5.1.0",
@@ -141,7 +144,8 @@
       "^dtos/dtos(|/.*)$": "<rootDir>/libs/dtos/src/$1",
       "^validators/validators(|/.*)$": "<rootDir>/libs/validators/src/$1",
       "^mappers/mappers(|/.*)$": "<rootDir>/libs/mappers/src/$1",
-      "^@app/kafka(|/.*)$": "<rootDir>/libs/kafka/src/$1"
+      "^@app/kafka(|/.*)$": "<rootDir>/libs/kafka/src/$1",
+      "^@app/configuration(|/.*)$": "<rootDir>/libs/configuration/src/$1"
     }
   }
 }

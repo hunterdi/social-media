@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { ElasticsearchOptionsFactory, ElasticsearchModuleOptions } from "@nestjs/elasticsearch";
-import { configuration } from "libs/config/configuration";
+import { configuration } from "libs/config/src/configuration";
 
 @Injectable()
 export class ConfigurationElasticsearch implements ElasticsearchOptionsFactory {

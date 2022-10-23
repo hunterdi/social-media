@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { configuration } from 'libs/config/configuration';
+import { configuration } from 'libs/config/src/configuration';
 import { Logger } from 'nestjs-pino';
 import { ApiModule } from './api.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';

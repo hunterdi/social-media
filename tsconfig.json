@@ -15,7 +15,7 @@
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": false,
@@ -24,6 +24,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "alwaysStrict": false,
     "paths": {
       "services/services": [
         "libs/services/src"
@@ -61,12 +62,6 @@
       "database-elasticsearch/database-elasticsearch/*": [
         "libs/database-elasticsearch/src/*"
       ],
-      "Logger/logger": [
-        "libs/logger/src"
-      ],
-      "Logger/logger/*": [
-        "libs/logger/src/*"
-      ],
       "service-logger/service-logger": [
         "libs/service-logger/src"
       ],
@@ -85,17 +80,11 @@
       "validators/validators/*": [
         "libs/validators/src/*"
       ],
-      "mappers/mappers": [
-        "libs/mappers/src"
+      "@app/config": [
+        "libs/config/src"
       ],
-      "mappers/mappers/*": [
-        "libs/mappers/src/*"
-      ],
-      "@app/kafka": [
-        "libs/kafka/src"
-      ],
-      "@app/kafka/*": [
-        "libs/kafka/src/*"
+      "@app/configuration/*": [
+        "libs/config/src/*"
       ]
     }
   }

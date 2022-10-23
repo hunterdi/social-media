@@ -12,28 +12,28 @@ services:
   #   ports:
   #     - ${POSTGRES_PORT}:${POSTGRES_PORT}
 
-  # postgres:
-  #   image: debezium/postgres:14
-  #   container_name: postgres
-  #   hostname: postgres
-  #   environment:
-  #     POSTGRES_USER: ${DEBEZIUM_POSTGRES_USER}
-  #     POSTGRES_PASSWORD: ${DEBEZIUM_POSTGRES_PASSWORD}
-  #     POSTGRES_DB: ${DEBEZIUM_POSTGRES_DB}
-  #   volumes:
-  #     - ./scripts/postgres/custom-config.conf:/etc/postgresql/postgresql.conf
-  #   command: postgres -c config_file=/etc/postgresql/postgresql.conf
-  #   ports:
-  #     - "${DEBEZIUM_POSTGRES_PORT}:5432"
+  postgres:
+    image: debezium/postgres:14
+    container_name: postgres
+    hostname: postgres
+    environment:
+      POSTGRES_USER: ${DEBEZIUM_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${DEBEZIUM_POSTGRES_PASSWORD}
+      POSTGRES_DB: ${DEBEZIUM_POSTGRES_DB}
+    volumes:
+      - ./scripts/postgres/custom-config.conf:/etc/postgresql/postgresql.conf
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
+    ports:
+      - "${DEBEZIUM_POSTGRES_PORT}:5432"
 
-  # redis:
-  #   image: redis
-  #   restart: unless-stopped
-  #   container_name: redis
-  #   hostname: redis
-  #   ports:
-  #     - ${REDIS_PORT}:${REDIS_PORT}
-  #   command: 'redis-server --requirepass ${REDIS_PASSWORD} --appendonly yes'
+  redis:
+    image: redis
+    restart: unless-stopped
+    container_name: redis
+    hostname: redis
+    ports:
+      - ${REDIS_PORT}:${REDIS_PORT}
+    command: 'redis-server --requirepass ${REDIS_PASSWORD} --appendonly yes'
 
   # keycloak:
   #   build:

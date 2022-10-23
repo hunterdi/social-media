@@ -1,8 +1,7 @@
 import * as path from 'path';
-// import { configuration } from "libs/config/configuration";
 import * as dotenv from 'dotenv';
 import { cwd, env } from 'process';
-import { DataSource, DataSourceOptions } from "typeorm";
+import { DataSource } from "typeorm";
 import * as databaseEntities from '../entities';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 

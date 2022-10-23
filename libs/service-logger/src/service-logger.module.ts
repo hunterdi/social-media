@@ -2,7 +2,7 @@ import { Module, RequestMethod, Scope } from '@nestjs/common';
 import { LoggerModule as PinoLoggerModule } from 'nestjs-pino';
 import { LoggerService } from './logger.service';
 import { ILoggerService } from './logger.service.interface';
-import { configuration } from 'libs/config/configuration';
+import { configuration } from 'libs/config/src/configuration';
 import { logger } from './logger';
 
 @Module({

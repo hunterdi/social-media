@@ -1,4 +1,4 @@
-import { configuration } from 'libs/config/configuration';
+import { configuration } from 'libs/config/src/configuration';
 
 export const ElasticsearchConnection = {
     host: configuration().databases.elasticsearch.host,
