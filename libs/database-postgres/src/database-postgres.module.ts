@@ -1,11 +1,19 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { DataSource } from 'typeorm';
 import { repositories } from '.';
-import config from './config/ormconfig';
+import * as config from './config/ormconfig';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(config.options),
+    TypeOrmModule.forRoot(config.options)
+    // TypeOrmModule.forRootAsync({
+    //   useFactory: () => (config.options),
+    //   dataSourceFactory: async (options) => {
+    //     const dataSourceInit = await new DataSource(options).initialize();
+    //     return dataSourceInit;
+    //   }
+    // })
     // TypeOrmModule.forFeature(repositories)
   ],
   providers: [],
@@ -13,4 +21,4 @@ import config from './config/ormconfig';
     // TypeOrmModule.forFeature(repositories)
   ],
 })
-export class DatabasePostgresModule {}
+export class DatabasePostgresModule { }

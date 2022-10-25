@@ -1,1 +1,1 @@
-export * from './create-posts.seed';
+export * from './main.seed';

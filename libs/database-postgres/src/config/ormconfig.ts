@@ -1,9 +1,11 @@
 import * as path from 'path';
 import * as dotenv from 'dotenv';
 import { cwd, env } from 'process';
-import { DataSource } from "typeorm";
+import { DataSource, DataSourceOptions } from "typeorm";
 import * as databaseEntities from '../entities';
-import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
+import { SeederOptions } from 'typeorm-extension';
+import CreatePosts from '../seeders/create-posts.seed';
+import { MainSeeder } from '../seeders';
 
 dotenv.config();
 
@@ -11,7 +13,7 @@ const entities = (Object.keys(databaseEntities) as Array<keyof typeof databaseEn
     (entity: keyof typeof databaseEntities) => databaseEntities[entity],
 );
 
-export const options =
+export const options: DataSourceOptions & SeederOptions =
     {
         name: 'connPostgres',
         type: 'postgres',
@@ -26,10 +28,10 @@ export const options =
         migrations: [path.resolve('libs/database-postgres/src/migrations/*.{ts,js}')],
         entities,
         dropSchema: false,
-        seeds: ["./libs/database-postgres/src/seeders/*.seed.{ts,js}"],
+        seeds: [MainSeeder],
         factories: ["./libs/database-postgres/src/factories/*.factory.{ts,js}"],
         connectTimeoutMS: 60000,
         logNotifications: true,
-    } as PostgresConnectionOptions;
+    };
 
 export default new DataSource(options);
