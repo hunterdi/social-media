@@ -62,11 +62,11 @@
       "database-elasticsearch/database-elasticsearch/*": [
         "libs/database-elasticsearch/src/*"
       ],
-      "service-logger/service-logger": [
-        "libs/service-logger/src"
+      "logger/logger": [
+        "libs/logger/src"
       ],
-      "service-logger/service-logger/*": [
-        "libs/service-logger/src/*"
+      "logger/logger/*": [
+        "libs/logger/src/*"
       ],
       "dtos/dtos": [
         "libs/dtos/src"
@@ -80,11 +80,11 @@
       "validators/validators/*": [
         "libs/validators/src/*"
       ],
-      "@app/config": [
-        "libs/config/src"
+      "@lib/configuration": [
+        "libs/configuration/src"
       ],
-      "@app/configuration/*": [
-        "libs/config/src/*"
+      "@lib/configuration/*": [
+        "libs/configuration/src/*"
       ]
     }
   }

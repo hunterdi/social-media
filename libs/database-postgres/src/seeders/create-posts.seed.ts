@@ -1,7 +1,7 @@
-import { PostEntity, UserEntity } from "database-postgres/database-postgres";
 import { DataSource } from "typeorm";
 import { Seeder, SeederFactoryManager } from "typeorm-extension";
 import { faker } from '@faker-js/faker';
+import { PostEntity, UserEntity } from "../entities";
 
 export default class CreatePosts implements Seeder {
     async run(dataSource: DataSource, factoryManager: SeederFactoryManager): Promise<void> {

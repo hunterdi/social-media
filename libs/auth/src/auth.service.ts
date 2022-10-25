@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ILoggerService } from 'service-logger/service-logger';
+import { ILoggerService } from 'libs/logger/src';
 
 const users = [
     {

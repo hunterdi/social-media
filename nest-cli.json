@@ -71,13 +71,13 @@
         "tsConfigPath": "libs/database-elasticsearch/tsconfig.lib.json"
       }
     },
-    "service-logger": {
+    "logger": {
       "type": "library",
-      "root": "libs/service-logger",
+      "root": "libs/logger",
       "entryFile": "index",
-      "sourceRoot": "libs/service-logger/src",
+      "sourceRoot": "libs/logger/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/service-logger/tsconfig.lib.json"
+        "tsConfigPath": "libs/logger/tsconfig.lib.json"
       }
     },
     "dtos": {

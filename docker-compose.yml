@@ -135,7 +135,6 @@ services:
     links:
       - mongo
   
-  # https://docs.confluent.io/platform/current/installation/docker/config-reference.html#docker-configuration-parameters-for-cp
   zookeeper:
     image: confluentinc/cp-zookeeper:7.2.1
     hostname: zookeeper

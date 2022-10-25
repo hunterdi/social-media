@@ -9,3 +9,5 @@ KEYCLOACK
 
 # REFERENCE
 - https://www.keycloak.org/documentation
+- https://github.com/tada5hi/typeorm-extension (Seed and Factory)
+- https://docs.confluent.io/platform/current/installation/docker/config-reference.html#docker-configuration-parameters-for-cp (Kafka Docker)

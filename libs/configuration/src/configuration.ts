@@ -1,10 +1,11 @@
 require('dotenv').config();
 
-export const configuration: () => EnvironmentVariables.All = () => ({
+export const configuration: EnvironmentVariables = {
     env: (process.env.ENV as any) || 'dev',
     apiPort: parseInt(process.env.API_PORT) || 3000,
     logFilename: (process.env.LOG_FILE_NAME),
     databases: {
+        logger: Boolean(process.env.DB_LOGGER) || false,
         postgres: {
             host: process.env.POSTGRES_HOST,
             port: parseInt(process.env.POSTGRES_PORT) || 5432,
@@ -36,16 +37,14 @@ export const configuration: () => EnvironmentVariables.All = () => ({
     keycloak: {
         secretkey: process.env.KEYCLOACK_SECRETKEY
     },
-});
+};
 
-namespace EnvironmentVariables {
-    export type All = {
-        env: string;
-        apiPort: number;
-        logFilename: string;
-        databases: database;
-        keycloak: keycloak;
-    }
+type EnvironmentVariables = {
+    env: string;
+    apiPort: number;
+    logFilename: string;
+    databases: database;
+    keycloak: keycloak;
 }
 
 type database = {
@@ -53,6 +52,7 @@ type database = {
     timescale: timescale;
     elasticsearch: elasticsearch;
     debezium: debezium;
+    logger: boolean;
 }
 
 type postgres = {

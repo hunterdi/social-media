@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { DatabasePostgresModule } from 'database-postgres/database-postgres';
-import { ServiceLoggerModule } from 'service-logger/service-logger';
+import { ServiceLoggerModule } from 'libs/logger/src';
 import { AuthService } from './auth.service';
 
 @Module({

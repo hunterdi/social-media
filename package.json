@@ -27,6 +27,7 @@
     "services:down": "Make down",
     "typeorm:postgres": "typeorm-ts-node-esm -d ./libs/database-postgres/src/config/ormconfig.ts",
     "typeorm:cli": "typeorm-ts-node-esm",
+    "typeorm": "typeorm-ts-node-commonjs",
     "postgres:migration:generate": "npm run typeorm:postgres migration:generate ./libs/database-postgres/src/migrations/Migration_Generated",
     "postgres:migration:create": "npm run typeorm:cli migration:create ./libs/database-postgres/src/migrations/Migration_Created",
     "postgres:migration:run": "npm run typeorm:postgres migration:run",
@@ -150,7 +151,7 @@
       "^validators/validators(|/.*)$": "<rootDir>/libs/validators/src/$1",
       "^mappers/mappers(|/.*)$": "<rootDir>/libs/mappers/src/$1",
       "^@app/kafka(|/.*)$": "<rootDir>/libs/kafka/src/$1",
-      "^@app/configuration(|/.*)$": "<rootDir>/libs/configuration/src/$1"
+      "^@lib/configuration(|/.*)$": "<rootDir>/libs/configuration/src/$1"
     }
   }
 }
