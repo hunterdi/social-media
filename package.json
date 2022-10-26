@@ -35,9 +35,6 @@
     "postgres:migration:show": "npm run typeorm:postgres migration:show",
     "lib:create": "nest g library",
     "app:create": "nest g app",
-    "postgres:seed": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-seeding/dist/cli.js -c connPostgres -r ./libs/database-postgres/src/config -n ormconfig.ts",
-    "postgres:seed:config": "yarn postgres:seed config",
-    "postgres:seed:run": "yarn postgres:seed seed",
     "postgres:typeorm:seed": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-extension/dist/cli/index.js -r ./libs/database-postgres/src/config",
     "postgres:typeorm:seed:run": "yarn postgres:typeorm:seed seed -d ormconfig.ts"
   },
