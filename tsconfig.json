@@ -74,12 +74,6 @@
       "dtos/dtos/*": [
         "libs/dtos/src/*"
       ],
-      "validators/validators": [
-        "libs/validators/src"
-      ],
-      "validators/validators/*": [
-        "libs/validators/src/*"
-      ],
       "@lib/configuration": [
         "libs/configuration/src"
       ],

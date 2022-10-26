@@ -146,11 +146,7 @@
       "^Tools/tools(|/.*)$": "<rootDir>/libs/tools/src/$1",
       "^database-elasticsearch/database-elasticsearch(|/.*)$": "<rootDir>/libs/database-elasticsearch/src/$1",
       "^Logger/logger(|/.*)$": "<rootDir>/libs/logger/src/$1",
-      "^service-logger/service-logger(|/.*)$": "<rootDir>/libs/service-logger/src/$1",
       "^dtos/dtos(|/.*)$": "<rootDir>/libs/dtos/src/$1",
-      "^validators/validators(|/.*)$": "<rootDir>/libs/validators/src/$1",
-      "^mappers/mappers(|/.*)$": "<rootDir>/libs/mappers/src/$1",
-      "^@app/kafka(|/.*)$": "<rootDir>/libs/kafka/src/$1",
       "^@lib/configuration(|/.*)$": "<rootDir>/libs/configuration/src/$1"
     }
   }

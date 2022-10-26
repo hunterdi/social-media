@@ -89,15 +89,6 @@
         "tsConfigPath": "libs/dtos/tsconfig.lib.json"
       }
     },
-    "validators": {
-      "type": "library",
-      "root": "libs/validators",
-      "entryFile": "index",
-      "sourceRoot": "libs/validators/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/validators/tsconfig.lib.json"
-      }
-    },
     "sga": {
       "type": "application",
       "root": "apps/sga",
