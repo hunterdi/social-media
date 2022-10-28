@@ -8,8 +8,7 @@ import { AuthService } from './auth.service';
     DatabasePostgresModule,
     ServiceLoggerModule
   ],
-  providers: [
-    AuthService, AuthService],
+  providers: [AuthService],
   exports: [AuthService],
 })
 export class AuthModule { }

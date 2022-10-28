@@ -59,11 +59,13 @@
     "@types/hapi__joi": "^17.1.8",
     "@types/joi": "^17.2.3",
     "@types/pino-http": "^5.8.1",
+    "@types/uuid": "^8.3.4",
     "bcrypt": "^5.1.0",
     "class-transformer": "^0.5.1",
     "class-transformer-validator": "^0.9.1",
     "class-validator": "^0.13.2",
     "config": "^3.3.8",
+    "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "joi": "^17.6.3",
@@ -94,6 +96,7 @@
     "@nestjs/schematics": "^9.0.3",
     "@nestjs/testing": "^9.1.4",
     "@types/bcrypt": "^5.0.0",
+    "@types/cookie-parser": "^1.4.3",
     "@types/express": "^4.17.14",
     "@types/jest": "29.1.2",
     "@types/node": "^18.8.4",
@@ -144,7 +147,8 @@
       "^database-elasticsearch/database-elasticsearch(|/.*)$": "<rootDir>/libs/database-elasticsearch/src/$1",
       "^Logger/logger(|/.*)$": "<rootDir>/libs/logger/src/$1",
       "^dtos/dtos(|/.*)$": "<rootDir>/libs/dtos/src/$1",
-      "^@lib/configuration(|/.*)$": "<rootDir>/libs/configuration/src/$1"
+      "^@lib/configuration(|/.*)$": "<rootDir>/libs/configuration/src/$1",
+      "^@app/exception-manager(|/.*)$": "<rootDir>/libs/exception-manager/src/$1"
     }
   }
 }

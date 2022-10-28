@@ -79,6 +79,12 @@
       ],
       "@lib/configuration/*": [
         "libs/configuration/src/*"
+      ],
+      "@app/exception-manager": [
+        "libs/exception-manager/src"
+      ],
+      "@app/exception-manager/*": [
+        "libs/exception-manager/src/*"
       ]
     }
   }

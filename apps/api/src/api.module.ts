@@ -4,12 +4,11 @@ import { ServiceLoggerModule } from 'libs/logger/src';
 import { AuthController } from './controllers/auth.controller';
 import { AutomapperModule } from '@automapper/nestjs';
 import { classes } from '@automapper/classes';
-import { DtosModule } from 'dtos/dtos';
 
 @Module({
   imports: [
     AuthModule,
-    ServiceLoggerModule,
+    // ServiceLoggerModule,
     AutomapperModule.forRoot(
       {
         strategyInitializer: classes(),

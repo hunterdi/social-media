@@ -1,5 +1,5 @@
 FROM node:16.13.2-slim
-# EXPOSE 5555
+EXPOSE 3000 3001
 
 # RUN mkdir /app && chown -R node:node /app
 

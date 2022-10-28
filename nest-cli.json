@@ -106,6 +106,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/configuration/tsconfig.lib.json"
       }
+    },
+    "exception-manager": {
+      "type": "library",
+      "root": "libs/exception-manager",
+      "entryFile": "index",
+      "sourceRoot": "libs/exception-manager/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/exception-manager/tsconfig.lib.json"
+      }
     }
   }
 }

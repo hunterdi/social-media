@@ -1,21 +1,21 @@
-import { NestFactory } from '@nestjs/core';
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { configuration } from 'libs/configuration/src/configuration';
 import { Logger } from 'nestjs-pino';
 import { ApiModule } from './api.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { ValidationPipe } from '@nestjs/common';
-// const tracer = require('./tracing');
+import { ExceptionsLoggerFilter } from '@app/exception-manager';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
-  // await tracer.start();
   const app = await NestFactory.create(ApiModule);
-  // , { 
-  // bufferLogs: true, 
-  // logger: false, 
-  // });
   app.setGlobalPrefix('api');
   app.useLogger(app.get(Logger));
   // app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+
+  const httpAdapterHost = app.get(HttpAdapterHost);
+  app.useGlobalFilters(new ExceptionsLoggerFilter(httpAdapterHost));
+ 
+  app.use(cookieParser());
 
   app.enableShutdownHooks();
   app.enableCors({ origin: '*' });
