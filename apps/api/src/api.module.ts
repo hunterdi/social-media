@@ -1,6 +1,6 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { forwardRef, MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { AuthModule } from 'auth/auth/auth.module';
-import { ServiceLoggerModule } from 'libs/logger/src';
+import { LoggerMiddleware, ServiceLoggerModule } from 'libs/logger/src';
 import { AuthController } from './controllers/auth.controller';
 import { AutomapperModule } from '@automapper/nestjs';
 import { classes } from '@automapper/classes';
@@ -18,4 +18,10 @@ import { classes } from '@automapper/classes';
   controllers: [AuthController],
   providers: []
 })
-export class ApiModule { }
+export class ApiModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
+  }
+}

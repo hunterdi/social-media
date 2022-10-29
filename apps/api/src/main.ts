@@ -3,17 +3,17 @@ import { configuration } from 'libs/configuration/src/configuration';
 import { Logger } from 'nestjs-pino';
 import { ApiModule } from './api.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { ExceptionsLoggerFilter } from '@app/exception-manager';
 import cookieParser from 'cookie-parser';
+import { BaseExceptionFilter } from '@app/exception-manager';
 
 async function bootstrap() {
   const app = await NestFactory.create(ApiModule);
   app.setGlobalPrefix('api');
-  app.useLogger(app.get(Logger));
+  // app.useLogger(app.get(Logger));
   // app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
   const httpAdapterHost = app.get(HttpAdapterHost);
-  app.useGlobalFilters(new ExceptionsLoggerFilter(httpAdapterHost));
+  app.useGlobalFilters(new BaseExceptionFilter(httpAdapterHost));
  
   app.use(cookieParser());
 

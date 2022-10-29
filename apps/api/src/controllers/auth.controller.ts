@@ -1,6 +1,7 @@
+import { HttpStatus } from '@nestjs/common';
 import { Mapper } from '@automapper/core';
 import { InjectMapper, MapPipe } from '@automapper/nestjs';
-import { Body, Controller, Get, Post, UploadedFile, UseInterceptors, UsePipes } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, Post, UploadedFile, UseInterceptors, UsePipes } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from 'auth/auth';
@@ -32,5 +33,10 @@ export class AuthController {
     async create(@Body(MapPipe(UserDTO, UserEntity)) user: UserEntity): Promise<UserDTO> {
         const response = await this._mapper.mapAsync(user, UserEntity, UserDTO);
         return response;
+    }
+
+    @Get('error')
+    error(): void {
+        throw new HttpException('funfa', HttpStatus.BAD_REQUEST);
     }
 }
