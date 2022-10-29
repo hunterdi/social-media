@@ -412,7 +412,7 @@ services:
       - cluster.name=${CLUSTER_NAME}
       - cluster.initial_master_nodes=es01,es02,es03
       - discovery.seed_hosts=es02,es03
-      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - ELASTIC_PASSWORD='${ELASTIC_PASSWORD}'
       - bootstrap.memory_lock=true
       - xpack.security.enabled=true
       - xpack.security.http.ssl.enabled=true
@@ -426,6 +426,9 @@ services:
       - xpack.security.transport.ssl.certificate_authorities=certs/ca/ca.crt
       - xpack.security.transport.ssl.verification_mode=certificate
       - xpack.license.self_generated.type=${LICENSE}
+      - xpack.reporting.roles.enabled=false
+      - xpack.graph.enabled=false
+      - xpack.watcher.enabled=false
     mem_limit: ${MEM_LIMIT}
     ulimits:
       memlock:
@@ -466,6 +469,9 @@ services:
       - xpack.security.transport.ssl.certificate_authorities=certs/ca/ca.crt
       - xpack.security.transport.ssl.verification_mode=certificate
       - xpack.license.self_generated.type=${LICENSE}
+      - xpack.reporting.roles.enabled=false
+      - xpack.graph.enabled=false
+      - xpack.watcher.enabled=false
     mem_limit: ${MEM_LIMIT}
     ulimits:
       memlock:
@@ -506,6 +512,9 @@ services:
       - xpack.security.transport.ssl.certificate_authorities=certs/ca/ca.crt
       - xpack.security.transport.ssl.verification_mode=certificate
       - xpack.license.self_generated.type=${LICENSE}
+      - xpack.reporting.roles.enabled=false
+      - xpack.graph.enabled=false
+      - xpack.watcher.enabled=false
     mem_limit: ${MEM_LIMIT}
     ulimits:
       memlock:
@@ -539,7 +548,7 @@ services:
       - SERVERNAME=kibana
       - ELASTICSEARCH_HOSTS=https://es01:9200
       - ELASTICSEARCH_USERNAME=kibana_system
-      - ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD}
+      - ELASTICSEARCH_PASSWORD='${KIBANA_PASSWORD}'
       - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=config/certs/ca/ca.crt
     mem_limit: ${MEM_LIMIT}
     healthcheck:
