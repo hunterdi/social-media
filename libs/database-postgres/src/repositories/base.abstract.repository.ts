@@ -3,14 +3,14 @@ import { DeleteResult, FindOptionsWhereProperty, Repository } from "typeorm";
 
 export abstract class BaseAbstractRepository<T extends PostgresEntity> implements IBaseRepository<T> {
 
-    private entity: Repository<T>;
+    private repository: Repository<T>;
 
-    protected constructor(entity: Repository<T>) {
-        this.entity = entity;
+    protected constructor(repository: Repository<T>) {
+        this.repository = repository;
     }
 
     public create(data: T | any): Promise<T> {
-        return this.entity.save(data);
+        return this.repository.save(data);
     }
 
     // public findOneById(id: FindOptionsWhereProperty<NonNullable<T["id"]>>): Promise<T> {
@@ -18,15 +18,15 @@ export abstract class BaseAbstractRepository<T extends PostgresEntity> implement
     // }
 
     public findByCondition(filterCondition: any): Promise<T> {
-        return this.entity.findOne({ where: filterCondition });
+        return this.repository.findOne({ where: filterCondition });
     }
 
     public findWithRelations(relations: any): Promise<T[]> {
-        return this.entity.find(relations)
+        return this.repository.find(relations)
     }
 
     public findAll(): Promise<T[]> {
-        return this.entity.find();
+        return this.repository.find();
     }
 
     public update(id: string, item: T): Promise<void> {
@@ -34,7 +34,7 @@ export abstract class BaseAbstractRepository<T extends PostgresEntity> implement
     }
 
     public remove(id: string): Promise<DeleteResult> {
-        return this.entity.delete(id);
+        return this.repository.delete(id);
     }
 
 }
