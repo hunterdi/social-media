@@ -1,7 +1,6 @@
-import { EntityRepository, Repository } from "typeorm";
+import { Repository } from "typeorm";
 import { UserEntity } from "..";
 
-@EntityRepository(UserEntity)
 export class UserRepository extends Repository<UserEntity> {
     public async createAsync(user: UserEntity): Promise<UserEntity> {
         await user.save();
