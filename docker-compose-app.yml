@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+  app:
+    build: .
+    command: "sh -c 'yarn && yarn api:start'"
+    ports:
+      - 3001:3001
+      - 3000:3000
+    volumes:
+      - .:/home/node/app
