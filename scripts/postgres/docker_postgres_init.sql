@@ -1,3 +1,5 @@
+CREATE USER admin WITH PASSWORD '12369';
+
 CREATE DATABASE pocrpg
     WITH 
     OWNER = admin 
@@ -7,6 +9,8 @@ CREATE DATABASE pocrpg
     TABLESPACE = pg_default 
     CONNECTION LIMIT = -1;
 
+GRANT ALL PRIVILEGES ON DATABASE pocrpg TO admin;
+
 CREATE DATABASE keycloak
     WITH 
     OWNER = admin 
@@ -15,3 +19,5 @@ CREATE DATABASE keycloak
     LC_CTYPE = 'en_US.utf8' 
     TABLESPACE = pg_default 
     CONNECTION LIMIT = -1;
+
+GRANT ALL PRIVILEGES ON DATABASE keycloak TO admin;
